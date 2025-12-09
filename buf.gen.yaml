@@ -1,0 +1,13 @@
+version: v2
+plugins:
+  # Protobuf 本体（Python）
+  - remote: buf.build/protocolbuffers/python
+    out: .
+
+  # 型ヒント（.pyi）
+  - remote: buf.build/protocolbuffers/pyi
+    out: .
+
+  # ConnectRPC (Python) 用のコード生成
+  - remote: buf.build/connectrpc/python
+    out: .
