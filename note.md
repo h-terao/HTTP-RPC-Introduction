@@ -1,6 +1,7 @@
-# Remote Procedure Call 入門
+# REST に全部賭けたあなたのためのRemote Procedure Call 入門
 
-想定読者: REST API の基礎を理解している開発者
+- 想定読者: RPC に興味がある開発者
+- 前提知識: REST API の基本的な理解
 
 ## Remote Procedure Call (RPC)
 
@@ -43,7 +44,7 @@ RPC は、クライアントがサーバー上の関数を呼び出すアプロ�
 | URI | `/users/123` (リソースを表す) | `/UserService.GetUser` (メソッドを表す) |
 | 操作 | HTTP メソッドに従う（GET, POST, PUT, DELETE） | 自由にメソッド定義（関数名ベース, 基本 HTTP POST で通信） |
 | 状態表現 | 状態の CRUD が中心 | 行動・処理が中心 |
-| ステータスコード | 404 Not Found, 200 OK など HTTP ステータスを活用 | HTTP ステータスは基本 200 で固定。ボディ内の `code` や `error` フィールドでエラー表現 |
+| ステータスコード | 404 Not Found, 200 OK など HTTP ステータスを活用 | レスポンス内のエラー情報 (`code`, `error`) で表現するのが一般的 |
 
 REST は「何に対して何をしたいか」が URI と HTTP メソッドで表現されますが、
 RPC は「どの機能を実行したいか」をメソッド名で表現します。
@@ -57,7 +58,7 @@ RPC は「どの機能を実行したいか」をメソッド名で表現しま�
 | 項目 | REST | RPC |
 |------|------|-----|
 | データ形式 | JSON 等（疎な型定義） | Protocol Buffers 等 (厳密な型定義) |
-| 契約（仕様）共有 | ドキュメント依存 | IDL による明確な契約 |
+| 契約（仕様）共有 | ドキュメント依存になりがち | IDL による明確な契約が前提 |
 | 自動生成 | 追加ツールが必要 | IDL からコード生成 |
 
 REST ではサーバー実装が先行しがちで、クライアントはドキュメントを基に手動で対応することも多いです。
@@ -226,7 +227,7 @@ gRPC の弱点だった Web とレガシー環境への対応を ConnectRPC は�
 ConnectRPC の Python 実装は、`connect-python` パッケージを使用します。
 
 ```bash
-$ uv add connect-python protobuf
+$ uv add connect-python protobuf uvicorn
 ```
 
 ### 1. Protobuf 定義の作成
